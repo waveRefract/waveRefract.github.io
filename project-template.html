@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WaveAnalyzer - waveRefract Project</title>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body { margin: 0; font-family: 'Roboto', sans-serif; background-color: #121212; color: #f5f5f5; }
+    a { color: #1db954; text-decoration: none; }
+    header { padding: 2rem; text-align: center; background-color: #1f1f1f; }
+    header h1 { margin: 0; font-size: 2.5rem; }
+    header p { color: #aaa; margin-top: 0.5rem; }
+    main { max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+    h2 { color: #fff; margin-top: 2rem; }
+    pre { background: #1f1f1f; padding: 1rem; border-radius: 8px; overflow-x: auto; }
+    #wave-chart { margin-top: 2rem; height: 300px; }
+    img { max-width: 100%; border-radius: 12px; margin: 1rem 0; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>WaveAnalyzer</h1>
+  <p>Interactive audio waveform analyzer using D3.js</p>
+  <p><a href="https://github.com/YourGitHubOrg/WaveAnalyzer" target="_blank">View on GitHub</a></p>
+</header>
+
+<main>
+  <h2>Project Overview</h2>
+  <p>WaveAnalyzer is a tool for visualizing audio waveforms in real-time or from files. Perfect for audio analysis, AI audio projects, and sound design experimentation.</p>
+
+  <img src="https://via.placeholder.com/800x400?text=WaveAnalyzer+Screenshot" alt="WaveAnalyzer Screenshot">
+
+  <h2>Code Example</h2>
+  <pre>
+    <code>
+    import waveAnalyzer from 'wave-analyzer';
+
+    const audioFile = 'sample.wav';
+    waveAnalyzer.load(audioFile).then(data =&gt; {
+      waveAnalyzer.visualize(data, '#wave-chart');
+    });
+    </code>
+  </pre>
+
+  <h2>Waveform Visualization</h2>
+  <div id="wave-chart"></div>
+
+  <script>
+    // Example D3.js waveform visualization
+    const width = 800;
+    const height = 300;
+
+    const svg = d3.select("#wave-chart")
+      .append("svg")
+      .attr("width", width)
+      .attr("height", height);
+
+    const data = Array.from({length: 200}, () => Math.random() * height);
+
+    const x = d3.scaleLinear().domain([0, data.length - 1]).range([0, width]);
+    const y = d3.scaleLinear().domain([0, height]).range([height, 0]);
+
+    const line = d3.line()
+      .x((d, i) => x(i))
+      .y(d => y(d))
+      .curve(d3.curveBasis);
+
+    svg.append("path")
+      .datum(data)
+      .attr("fill", "none")
+      .attr("stroke", "#1db954")
+      .attr("stroke-width", 2)
+      .attr("d", line);
+  </script>
+
+  <h2>Usage & Documentation</h2>
+  <p>To integrate WaveAnalyzer in your project, install via npm and follow the examples provided in the GitHub repository.</p>
+</main>
+
+</body>
+</html>
